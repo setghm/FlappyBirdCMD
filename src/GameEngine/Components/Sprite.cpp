@@ -1,0 +1,60 @@
+#include "Sprite.hpp"
+
+#include "../Console.hpp"
+
+Sprite::Sprite() {
+	size = { 0 };
+	velocity = { 0 };
+	world_bounds = { 0 };
+}
+
+Sprite::Sprite(ByteColorImage* bytecolor) {
+	size.height = bytecolor->height;
+	size.width = bytecolor->width;
+	data = bytecolor->data;
+
+	velocity = { 0 };
+	world_bounds = { 0 };
+}
+
+void Sprite::update(double delta_time) {
+	PhysicsObject::update(delta_time);
+
+	const bool world_bounds_active = world_bounds.width > 0 && world_bounds.height > 0;
+	
+	if (world_bounds_active) {
+		// Set velocity to 0 if the position is in the world bounds limit
+		// and restore the x or y positions.
+		
+		if (velocity.x != 0) {
+			const double max_x = world_bounds.x + world_bounds.width;
+
+			const bool greater_x = position.x + size.width > max_x;
+			const bool lower_x = position.x < world_bounds.x;
+
+			if (greater_x || lower_x) {
+				velocity.x = 0;
+				position.x = greater_x ? max_x - size.width : world_bounds.x;
+			}
+		}
+
+		if (velocity.y != 0) {
+			const double max_y = world_bounds.y + world_bounds.height;
+
+			const bool greater_y = position.y + size.height > max_y;
+			const bool lower_y = position.y < world_bounds.y;
+
+			if (greater_y || lower_y) {
+				velocity.y = 0;
+				position.y = greater_y ? max_y - size.height : world_bounds.y;
+			}
+		}
+	}
+}
+
+void Sprite::draw(void) {
+	const uint32_t px = static_cast<uint32_t>(position.x);
+	const uint32_t py = static_cast<uint32_t>(position.y);
+
+	Console::getInstance()->draw(data, size.width, size.height, px, py);
+}
