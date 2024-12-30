@@ -33,7 +33,7 @@ void Bird::input(InputEvent* event) {
 		KeyboardEvent* ke = static_cast<KeyboardEvent*>(event);
 
 		if (ke->keycode == 32 && !ke->is_pressed) {
-			setVelocityY(-25);
+			setVelocityY(config::player::jump_velocity);
 		}
 	}
 }

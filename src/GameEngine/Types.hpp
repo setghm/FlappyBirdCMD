@@ -12,6 +12,13 @@ struct Rect2d {
 struct Vector2 {
 	double x;
 	double y;
+
+    /*
+    * Calculate the dot product.
+    */
+    double dot(const Vector2& other) const {
+        return x * other.x + y * other.y;
+    }
 };
 
 struct Size2d {

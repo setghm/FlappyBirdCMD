@@ -142,6 +142,9 @@
     <ClCompile Include="src\GameEngine\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GameEngine\Components\Sprite.cpp" />
+    <ClCompile Include="src\Classes\GameObjects\Tube.cpp" />
+    <ClCompile Include="src\GameEngine\Utils.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameEngine\Components\PhysicsObject.hpp" />
@@ -160,6 +163,12 @@
     <ClInclude Include="src\GameEngine\Components\Sprite.hpp" />
     <ClInclude Include="src\GameEngine\InputEvents.hpp" />
     <ClInclude Include="src\GameEngine\Types.hpp" />
+    <ClInclude Include="src\Classes\GameObjects\Tube.hpp" />
+    <ClInclude Include="src\GameEngine\Utils.hpp" />
+    <ClInclude Include="src\GameEngine\Components\Timer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

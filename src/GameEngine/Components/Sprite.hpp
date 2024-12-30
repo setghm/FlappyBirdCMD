@@ -12,6 +12,9 @@ class Sprite : public PhysicsObject {
 private:
 	Size2d size;
 	std::vector<uint8_t> data;
+
+	bool flipped_y;
+	bool flipped_x;
 protected:
 	Rect2d world_bounds;
 public:
@@ -98,5 +101,25 @@ public:
 		world_bounds.width = config::screen::width;
 		world_bounds.height = config::screen::height;
 	}
+
+	/*
+	* Flipped along X axis.
+	*/
+	bool isFlippedX(void) const { return flipped_x; }
+
+	/*
+	* Flip or restore along X axis.
+	*/
+	inline void setFlipX(bool flip) { flipped_x = flip; }
+
+	/*
+	* Flipped along Y axis.
+	*/
+	bool isFlippedY(void) const { return flipped_y; }
+
+	/*
+	* Flip or restore along Y axis.
+	*/
+	inline void setFlipY(bool flip) { flipped_y = flip; }
 };
 

@@ -6,15 +6,14 @@ Sprite::Sprite() {
 	size = { 0 };
 	velocity = { 0 };
 	world_bounds = { 0 };
+	flipped_x = false;
+	flipped_y = false;
 }
 
-Sprite::Sprite(ByteColorImage* bytecolor) {
+Sprite::Sprite(ByteColorImage* bytecolor) : Sprite() {
 	size.height = bytecolor->height;
 	size.width = bytecolor->width;
 	data = bytecolor->data;
-
-	velocity = { 0 };
-	world_bounds = { 0 };
 }
 
 void Sprite::update(double delta_time) {
@@ -53,8 +52,8 @@ void Sprite::update(double delta_time) {
 }
 
 void Sprite::draw(void) {
-	const uint32_t px = static_cast<uint32_t>(position.x);
-	const uint32_t py = static_cast<uint32_t>(position.y);
+	const int px = static_cast<int>(position.x);
+	const int py = static_cast<int>(position.y);
 
 	Console::getInstance()->draw(data, size.width, size.height, px, py);
 }

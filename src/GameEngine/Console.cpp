@@ -4,6 +4,7 @@
 #include <exception>
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 Console* Console::instance = new Console();
 
@@ -187,26 +188,36 @@ InputEvent* Console::checkInput(void) const {
 	return nullptr;
 }
 
-void Console::draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, uint32_t x, uint32_t y) {
+void Console::draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, int x, int y) {
+	const int max_x = static_cast<int>(width) + x;
+	const int max_y = static_cast<int>(height) + y;
 
-	for (int by = y; by < y + height && by < config::screen::height; by++) {
-		for (int bx = x; bx < x + width && bx < config::screen::width; bx++) {
-			const int buffer_pos = bx + (by * config::screen::width);
-			const int data_pos = (bx - x) + (by - y) * width;
+	for (int by = y; by < max_y; by++) {
+		for (int bx = x; bx < max_x; bx++) {
 
-			buffer[buffer_pos].Attributes = data[data_pos];
+			if (bx >= 0 && by >= 0 && by < config::screen::height && bx < config::screen::width) {
+				const int buffer_pos = bx + (by * config::screen::width);
+				const int data_pos = (bx - x) + (by - y) * width;
+
+				buffer[buffer_pos].Attributes = data[data_pos];
+			}
+
 		}
 	}
 
 }
 
-void Console::draw(uint8_t colour, uint32_t width, uint32_t height, uint32_t x, uint32_t y) {
+void Console::draw(uint8_t colour, uint32_t width, uint32_t height, int x, int y) {
 
-	for (int by = y; by < y + height && by < config::screen::height; by++) {
-		for (int bx = x; bx < x + width && bx < config::screen::width; bx++) {
-			const int buffer_pos = bx + (by * config::screen::width);
+	for (int by = y; by < y + height; by++) {
+		for (int bx = x; bx < x + width; bx++) {
 
-			buffer[buffer_pos].Attributes = colour;
+			if (bx >= 0 && by >= 0 && by < config::screen::height && bx < config::screen::width) {
+				const int buffer_pos = bx + (by * config::screen::width);
+
+				buffer[buffer_pos].Attributes = colour;
+			}
+
 		}
 	}
 

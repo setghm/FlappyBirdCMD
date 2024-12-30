@@ -7,5 +7,6 @@
 #include "Game.hpp"
 #include "Types.hpp"
 #include "InputEvents.hpp"
+#include "Utils.hpp"
 
 #include "../Configuration.hpp"

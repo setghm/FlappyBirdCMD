@@ -1,4 +1,4 @@
-#include <Classes/FlappyGame.hpp>
+#include "Classes/FlappyGame.hpp"
 
 int main() {
     return FlappyGame().play();

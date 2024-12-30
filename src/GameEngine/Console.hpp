@@ -70,11 +70,11 @@ public:
 	/*
 	* Draws a colour vector on the console buffer.
 	*/
-	void draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, uint32_t x, uint32_t y);
+	void draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, int x, int y);
 
 	/*
 	* Draws a solid colour in the specified area at the specified position (0,0 by default).
 	*/
-	void draw(uint8_t colour, uint32_t width, uint32_t height, uint32_t x = 0, uint32_t y = 0);
+	void draw(uint8_t colour, uint32_t width, uint32_t height, int x = 0, int y = 0);
 };
 
