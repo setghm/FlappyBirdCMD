@@ -52,8 +52,17 @@ void Sprite::update(double delta_time) {
 }
 
 void Sprite::draw(void) {
-	const int px = static_cast<int>(position.x);
-	const int py = static_cast<int>(position.y);
+	const double w = static_cast<double>(size.width);
+	const double h = static_cast<double>(size.height);
 
-	Console::getInstance()->draw(data, size.width, size.height, px, py);
+	const Rect2d data_rect { 0, 0, w, h };
+
+	const Rect2d screen_rect {
+		static_cast<int>(position.x),
+		static_cast<int>(position.y),
+		flipped_x ? -w : w,
+		flipped_y ? -h : h
+	};
+
+	Console::getInstance()->draw(data, data_rect, screen_rect);
 }

@@ -16,10 +16,10 @@ namespace config {
 		constexpr double gravity = 25;
 
 		constexpr double tubes_start_x = screen::width * 1.2;
-		constexpr double tubes_min_space = 25;
-		constexpr double tubes_max_space = 30;
-		constexpr double tubes_min_middle_y = screen::height * 0.3;
-		constexpr double tubes_max_middle_y = screen::height * 0.6;
+		constexpr double tubes_min_space = 12;
+		constexpr double tubes_max_space = 16;
+		constexpr double tubes_min_middle_y = screen::height * 0.45;
+		constexpr double tubes_max_middle_y = screen::height * 0.55;
 		constexpr double tubes_velocity = -30;
 
 		constexpr double duration_tubes_generation = 2.3; // In seconds

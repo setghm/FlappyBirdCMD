@@ -16,7 +16,10 @@ public:
 
 class KeyboardEvent : public InputEvent {
 public:
-    KeyboardEvent() : InputEvent(InputEventType::keyboard) {}
+    KeyboardEvent() : InputEvent(InputEventType::keyboard) {
+        keycode = 0;
+        is_pressed = false;
+    }
 
     int keycode;
     bool is_pressed;
@@ -30,7 +33,11 @@ enum class MouseButton {
 
 class MouseEvent : public InputEvent {
 public:
-    MouseEvent() : InputEvent(InputEventType::mouse) {}
+    MouseEvent() : InputEvent(InputEventType::mouse) {
+        position = { 0 };
+        button = MouseButton::other;
+        is_pressed = false;
+    }
 
     Vector2 position;
     MouseButton button;

@@ -65,12 +65,25 @@ public:
 	* an InputEvent object, if there are not pending input events returns
 	* nullptr.
 	*/
-	InputEvent* checkInput() const;
+	InputEvent* checkInput(void) const;
 
 	/*
 	* Draws a colour vector on the console buffer.
+	* 
+	* If data_rect has smaller size than data actually is, the data will be
+	* clipped.
+	* 
+	* If data_rect is greater than screen_rect, the data will be clipped to fit the
+	* draw area given by the second rectangle.
+	* 
+	* Negative width or height values in data_rect will be ignored and converted
+	* to positive values.
+	* 
+	* Negative width or height in screen_rect will result in a flip effect along
+	* x or y axis respectively.
+	* 
 	*/
-	void draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, int x, int y);
+	void draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, const Rect2d& screen_rect);
 
 	/*
 	* Draws a solid colour in the specified area at the specified position (0,0 by default).

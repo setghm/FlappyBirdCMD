@@ -54,6 +54,8 @@ void MainScene::addTubesPair(void) {
 	top_tube->setVelocityX(config::game::tubes_velocity);
 	bottom_tube->setVelocityX(config::game::tubes_velocity);
 
+	top_tube->setFlipY(true);
+
 	tubes.push_back(top_tube);
 	tubes.push_back(bottom_tube);
 }

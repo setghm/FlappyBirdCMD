@@ -188,18 +188,45 @@ InputEvent* Console::checkInput(void) const {
 	return nullptr;
 }
 
-void Console::draw(const std::vector<uint8_t>& data, uint32_t width, uint32_t height, int x, int y) {
-	const int max_x = static_cast<int>(width) + x;
-	const int max_y = static_cast<int>(height) + y;
+void Console::draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, const Rect2d& screen_rect) {
+	const int dw = std::abs(data_rect.width); // Data width.
+	const int dh = std::abs(data_rect.height); // Data height.
 
-	for (int by = y; by < max_y; by++) {
-		for (int bx = x; bx < max_x; bx++) {
+	// Maximum x position for data.
+	const int dmx = static_cast<int>(data_rect.x + dw);
+	// Maximum y position for data.
+	const int dmy = static_cast<int>(data_rect.y + dh);
 
-			if (bx >= 0 && by >= 0 && by < config::screen::height && bx < config::screen::width) {
-				const int buffer_pos = bx + (by * config::screen::width);
-				const int data_pos = (bx - x) + (by - y) * width;
+	// Maximum (or minimum) x position in screen.
+	const int smx = static_cast<int>(screen_rect.x + screen_rect.width);
+	// Maximum (or minimum) y position in screen.
+	const int smy = static_cast<int>(screen_rect.y + screen_rect.height);
 
-				buffer[buffer_pos].Attributes = data[data_pos];
+	// Is the data flipped along the Y axis.
+	const bool fy = screen_rect.height < 0;
+	// Is the data flipped along the X axis.
+	const bool fx = screen_rect.width < 0;
+
+	// Increment for the screen position iterator along Y axis.
+	const int syi = fy ? -1 : 1;
+	// Increment for the screen position iterator along X axis.
+	const int sxi = fx ? -1 : 1;
+
+	int dy = 0; // Data iterator for Y axis.
+	int dx = 0; // Data iterator for X axis.
+
+	int sy = 0; // Console screen buffer iterator for Y axis (the actual screen x).
+	int sx = 0; // Console screen buffer iterator for X axis (the actual screen y).
+
+	for (sy = screen_rect.y, dy = 0; (fy ? sy > smy : sy < smy) && (dy < dmy); sy += syi, dy++) {
+		for (sx = screen_rect.x, dx = 0; (fx ? sx > smx : sx < smx) && (dx < dmx); sx += sxi, dx++) {
+
+			// Check if this will be visible and draw if true.
+			if (sx >= 0 && sy >= 0 && sy < config::screen::height && sx < config::screen::width) {
+				const int position_in_screen = sx + (sy * config::screen::width);
+				const int position_in_data = dx + (dy * dw);
+				
+				buffer[position_in_screen].Attributes = data[position_in_data];
 			}
 
 		}
