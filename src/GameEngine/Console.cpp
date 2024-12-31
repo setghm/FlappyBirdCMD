@@ -188,7 +188,7 @@ InputEvent* Console::checkInput(void) const {
 	return nullptr;
 }
 
-void Console::draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, const Rect2d& screen_rect) {
+void Console::draw(const ColorData& data, const Rect2d& data_rect, const Rect2d& screen_rect) {
 	const int dw = std::abs(data_rect.width); // Data width.
 	const int dh = std::abs(data_rect.height); // Data height.
 
@@ -223,10 +223,15 @@ void Console::draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, co
 
 			// Check if this will be visible and draw if true.
 			if (sx >= 0 && sy >= 0 && sy < config::screen::height && sx < config::screen::width) {
-				const int position_in_screen = sx + (sy * config::screen::width);
 				const int position_in_data = dx + (dy * dw);
 				
-				buffer[position_in_screen].Attributes = data[position_in_data];
+				const uint8_t color = data.colors[position_in_data];
+
+				if (static_cast<uint8_t>(data.color_key) == color) continue;
+
+				const int position_in_screen = sx + (sy * config::screen::width);
+				
+				buffer[position_in_screen].Attributes = color;
 			}
 
 		}
@@ -234,7 +239,7 @@ void Console::draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, co
 
 }
 
-void Console::draw(uint8_t colour, uint32_t width, uint32_t height, int x, int y) {
+void Console::draw(Color color, uint32_t width, uint32_t height, int x, int y) {
 
 	for (int by = y; by < y + height; by++) {
 		for (int bx = x; bx < x + width; bx++) {
@@ -242,7 +247,7 @@ void Console::draw(uint8_t colour, uint32_t width, uint32_t height, int x, int y
 			if (bx >= 0 && by >= 0 && by < config::screen::height && bx < config::screen::width) {
 				const int buffer_pos = bx + (by * config::screen::width);
 
-				buffer[buffer_pos].Attributes = colour;
+				buffer[buffer_pos].Attributes = static_cast<uint8_t>(color);
 			}
 
 		}

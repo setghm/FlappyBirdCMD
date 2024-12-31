@@ -1,6 +1,14 @@
 #pragma once
 
 #include <cinttypes>
+#include <vector>
+
+struct Rect2d;
+struct Vector2d;
+struct Size2d;
+enum class Color : uint8_t;
+struct ColorData;
+struct CollisionMask;
 
 struct Rect2d {
 	double x;
@@ -17,7 +25,7 @@ struct Vector2 {
     * Calculate the dot product.
     */
     double dot(const Vector2& other) const {
-        return x * other.x + y * other.y;
+        return x * x + y * other.y;
     }
 };
 
@@ -26,7 +34,16 @@ struct Size2d {
     uint32_t height;
 };
 
-enum class Colour : uint8_t {
+struct ColorData {
+    std::vector<uint8_t> colors;
+
+    Size2d size;
+
+    Color color_key;
+};
+
+enum class Color : uint8_t {
+    undefined = 0,
     black = 0x0F,  // Black background, bright white text
     blue = 0x1F,  // Blue background, bright white text
     green = 0x2F,  // Green background, bright white text

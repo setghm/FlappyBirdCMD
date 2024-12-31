@@ -6,17 +6,14 @@
 #include "../Types.hpp"
 #include "../Addons/bytecolor_loader.hpp"
 #include "../../Configuration.hpp"
-#include "PhysicsObject.hpp"
+#include "PhysicsBody.hpp"
+#include "Image.hpp"
 
-class Sprite : public PhysicsObject {
-private:
-	Size2d size;
-	std::vector<uint8_t> data;
-
-	bool flipped_y;
-	bool flipped_x;
+class Sprite : public Image {
 protected:
 	Rect2d world_bounds;
+	PhysicsBody body;
+	bool collision_ignore_color_key;
 public:
 	/*
 	* Creates a new Sprite with empty data.
@@ -34,41 +31,11 @@ public:
 	virtual void update(double delta_time) override;
 
 	/*
-	* Draws the sprite into the console buffer.
+	* Checks if the sprite is collinding with another sprite.
 	*/
-	virtual void draw(void) override;
-
-	/*
-	* Skips the implementation for this method.
-	*/
-	virtual void input(InputEvent* event) override {}
+	bool checkCollision(Sprite* other);
 
 	// Accessors.
-
-	/*
-	* The current size of the sprite.
-	*/
-	Size2d getSize(void) const { return size; }
-
-	/*
-	* Width of the sprite in cells.
-	*/
-	double getWidth(void) const { return size.width; }
-
-	/*
-	* Height of the sprite in cells.
-	*/
-	double getHeight(void) const { return size.height; }
-
-	/*
-	* The colour data of the sprite.
-	*/
-	const std::vector<uint8_t>& getData(void) const { return data; }
-
-	/*
-	* Sets the colour data, width and height from a ByteColorImage object.
-	*/
-	inline void setData(ByteColorImage* image) { data = image->data; size.width = image->width; size.height = image->height; }
 
 	/*
 	* The current limits of the sprite.
@@ -103,23 +70,26 @@ public:
 	}
 
 	/*
-	* Flipped along X axis.
+	* The current physics body.
 	*/
-	bool isFlippedX(void) const { return flipped_x; }
+	const PhysicsBody& getBody() const { return body; }
 
 	/*
-	* Flip or restore along X axis.
+	* Change the values of the physics body.
 	*/
-	inline void setFlipX(bool flip) { flipped_x = flip; }
+	inline void setBody(PhysicsBody& body) { this->body = body; }
 
 	/*
-	* Flipped along Y axis.
+	* Check if the color key of the image color data (if set) is
+	* currently ignored when calculating collisions.
 	*/
-	bool isFlippedY(void) const { return flipped_y; }
+	bool getCollisionIgnoreColorKey(void) const { return collision_ignore_color_key; }
 
 	/*
-	* Flip or restore along Y axis.
+	* Marks the color key of the image color data (if set) to be ignored
+	* when calculating collisions.
 	*/
-	inline void setFlipY(bool flip) { flipped_y = flip; }
+	inline void setCollisionIgnoreColorKey(bool ignore) { collision_ignore_color_key = ignore; }
+
 };
 

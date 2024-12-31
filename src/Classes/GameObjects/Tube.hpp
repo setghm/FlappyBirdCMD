@@ -4,6 +4,6 @@
 
 class Tube : public Sprite {
 public:
-	Tube(double x, double y);
+	Tube(double y, bool flip_y = false);
 };
 

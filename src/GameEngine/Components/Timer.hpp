@@ -20,12 +20,12 @@ public:
 	virtual void update(double delta_time) override;
 
 	/*
-	* Skip the implementation for draw.
+	* Skip the implementation of draw().
 	*/
 	virtual void draw(void) override {}
 
 	/*
-	* Skip the implementation for input.
+	* Skip the implementation of input().
 	*/
 	virtual void input(InputEvent* event) override {}
 

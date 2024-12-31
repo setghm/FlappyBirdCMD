@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "InputEvents.hpp"
+#include "Types.hpp"
 
 class Console {
 private:
@@ -68,7 +69,7 @@ public:
 	InputEvent* checkInput(void) const;
 
 	/*
-	* Draws a colour vector on the console buffer.
+	* Draws a color vector on the console buffer.
 	* 
 	* If data_rect has smaller size than data actually is, the data will be
 	* clipped.
@@ -83,11 +84,11 @@ public:
 	* x or y axis respectively.
 	* 
 	*/
-	void draw(const std::vector<uint8_t>& data, const Rect2d& data_rect, const Rect2d& screen_rect);
+	void draw(const ColorData& data, const Rect2d& data_rect, const Rect2d& screen_rect);
 
 	/*
-	* Draws a solid colour in the specified area at the specified position (0,0 by default).
+	* Draws a solid color in the specified area at the specified position (0,0 by default).
 	*/
-	void draw(uint8_t colour, uint32_t width, uint32_t height, int x = 0, int y = 0);
+	void draw(Color color, uint32_t width, uint32_t height, int x = 0, int y = 0);
 };
 

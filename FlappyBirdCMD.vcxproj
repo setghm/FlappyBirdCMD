@@ -131,7 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Components\PhysicsObject.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Image.cpp" />
     <ClCompile Include="src\GameEngine\AssetManager.cpp" />
     <ClCompile Include="src\Classes\GameObjects\Bird.cpp" />
     <ClCompile Include="src\Classes\Scenes\MainScene.cpp" />
@@ -147,7 +147,8 @@
     <ClCompile Include="src\GameEngine\Components\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\Components\PhysicsObject.hpp" />
+    <ClInclude Include="src\GameEngine\Components\Image.hpp" />
+    <ClInclude Include="src\GameEngine\Components\PhysicsBody.hpp" />
     <ClInclude Include="src\GameEngine\AssetManager.hpp" />
     <ClInclude Include="src\Classes\GameObjects\Bird.hpp" />
     <ClInclude Include="src\GameEngine\Addons\bytecolor_loader.hpp" />

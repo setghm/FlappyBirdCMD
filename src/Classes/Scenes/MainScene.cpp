@@ -1,9 +1,10 @@
 #include "MainScene.hpp"
-#include "../GameObjects/Bird.hpp"
+
+#include <iostream>
 
 MainScene::MainScene() {
 	// Create the bird object.
-	Bird* bird = new Bird();
+	bird = new Bird();
 
 	addChild(bird);
 
@@ -48,13 +49,8 @@ void MainScene::addTubesPair(void) {
 	const double top_y = (middle_y - spacing / 2) - tube_height;
 	const double bottom_y = middle_y + spacing / 2;
 
-	Tube* top_tube = new Tube(config::game::tubes_start_x, top_y);
-	Tube* bottom_tube = new Tube(config::game::tubes_start_x, bottom_y);
-
-	top_tube->setVelocityX(config::game::tubes_velocity);
-	bottom_tube->setVelocityX(config::game::tubes_velocity);
-
-	top_tube->setFlipY(true);
+	Tube* top_tube = new Tube(top_y, true);
+	Tube* bottom_tube = new Tube(bottom_y);
 
 	tubes.push_back(top_tube);
 	tubes.push_back(bottom_tube);
@@ -71,10 +67,18 @@ void MainScene::update(double delta_time) {
 		if (tube->getX() + tube->getWidth() < 0) {
 			delete tube;
 			it = tubes.erase(it);
+			
+			continue;
 		}
-		else {
-			it++;
+		
+		// Check collisions with bird.
+		bool bird_colliding = bird->checkCollision(tube);
+
+		if (bird_colliding) {
+			// Notify game over.
 		}
+
+		it++;
 	}
 }
 
