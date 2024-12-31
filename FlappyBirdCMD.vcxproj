@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\GameObjects\Obstacles.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Container.cpp" />
     <ClCompile Include="src\Classes\GameObjects\Score.cpp" />
     <ClCompile Include="src\Classes\GameObjects\Background.cpp" />
     <ClCompile Include="src\GameEngine\Components\Image.cpp" />
@@ -139,7 +141,6 @@
     <ClCompile Include="src\Classes\Scenes\MainScene.cpp" />
     <ClCompile Include="src\Classes\FlappyGame.cpp" />
     <ClCompile Include="src\GameEngine\Addons\bytecolor_loader.cpp" />
-    <ClCompile Include="src\GameEngine\Components\Scene.cpp" />
     <ClCompile Include="src\GameEngine\Game.cpp" />
     <ClCompile Include="src\GameEngine\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -150,6 +151,8 @@
     <ClCompile Include="src\Classes\Scenes\StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\GameObjects\Obstacles.hpp" />
+    <ClInclude Include="src\GameEngine\Components\Container.hpp" />
     <ClInclude Include="src\Classes\GameObjects\Score.hpp" />
     <ClInclude Include="src\Classes\GameObjects\Background.hpp" />
     <ClInclude Include="src\GameEngine\Components\Image.hpp" />

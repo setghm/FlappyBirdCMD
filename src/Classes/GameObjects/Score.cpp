@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-Score::Score(void) {
+Score::Score(void) : GameObject() {
 	score = 0;
 
 	ByteColorImage* image = AssetManager::getByteColor("numbers");
@@ -61,6 +61,6 @@ void Score::increment(void) {
 	score++;
 }
 
-void Score::reset(void) {
+void Score::restart(void) {
 	score = 0;
 }

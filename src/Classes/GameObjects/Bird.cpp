@@ -1,6 +1,6 @@
 #include "Bird.hpp"
 
-Bird::Bird() {
+Bird::Bird() : Sprite() {
 	// Load bird frames.
 
 	frame_falling = AssetManager::getByteColor("bird falling");
@@ -8,8 +8,8 @@ Bird::Bird() {
 
 	// Configure the bird physics.
 
-	position.x = config::player::start_x;
-	position.y = config::player::start_y;
+	setX(config::player::start_x);
+	setY(config::player::start_y);
 
 	body.setAccelerationY(config::game::gravity);
 
@@ -26,15 +26,20 @@ Bird::Bird() {
 	setData(frame_falling);
 
 	falling = true;
+}
 
-	death = false;
+void Bird::restart(void) {
+	falling = true;
+
+	setData(frame_falling);
+
+	setX(config::player::start_x);
+	setY(config::player::start_y);
+
+	body.setVelocityY(0);
 }
 
 void Bird::update(double delta_time) {
-	if (death) {
-		return;
-	}
-
 	Sprite::update(delta_time);
 
 	const double vy = body.getVelocityY();
@@ -50,15 +55,13 @@ void Bird::update(double delta_time) {
 }
 
 void Bird::input(InputEvent* event) {
-	if (death) {
-		return;
-	}
-
-	if (event->type == InputEventType::keyboard) {
-		KeyboardEvent* ke = static_cast<KeyboardEvent*>(event);
+	if (event->isKeyboardEvent()) {
+		const KeyboardEvent* ke = event->toKeyboardEvent();
 
 		if (ke->keycode == 32 && !ke->is_pressed) {
+
 			body.setVelocityY(config::player::jump_velocity);
+
 		}
 	}
 }

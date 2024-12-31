@@ -12,8 +12,6 @@ protected:
 	bool flipped_x;
 
 	Vector2 position;
-
-	bool visible;
 public:
 	/*
 	* Creates a new image with empty data.
@@ -151,15 +149,5 @@ public:
 	* Update the vertical position.
 	*/
 	inline void setY(double y) { position.y = y; }
-
-	/*
-	* The image should be drawed.
-	*/
-	inline void setVisible(bool visible) { this->visible = visible; }
-
-	/*
-	* Is the image drawing.
-	*/
-	bool isVisible(void) const { return visible; }
 };
 

@@ -29,6 +29,21 @@ public:
 	*/
 	virtual void input(InputEvent* event) override {}
 
+	/*
+	* Restarts the timer.
+	*/
+	inline void restart(void) { elapsed_time = 0; }
+
+	/*
+	* Freeze this timer.
+	*/
+	inline void pause(void) { freezed = true; }
+
+	/*
+	* Unfreeze this timer.
+	*/
+	inline void resume(void) { freezed = false; }
+
 	// Accessors.
 
 	/*

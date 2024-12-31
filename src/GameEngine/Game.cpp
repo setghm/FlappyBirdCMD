@@ -5,7 +5,7 @@
 
 Game::Game(void) {
 	running = true;
-	active_scene = nullptr;
+	active_scene_name = "";
 }
 
 Game::~Game(void) {
@@ -13,7 +13,7 @@ Game::~Game(void) {
 		delete pair.second;
 	}
 
-	(void)scenes.empty();
+	scenes.clear();
 }
 
 int Game::play(void) {
@@ -33,17 +33,20 @@ int Game::play(void) {
 		// Clear the console buffer.
 		console->clear();
 
+		// Retrieve the active scene.
+		Scene* scene = scenes[active_scene_name];
+
 		// Check for input events and process.
 		InputEvent* event = console->checkInput();
 
 		if (event != nullptr) {
-			active_scene->input(event);
+			scene->input(event);
 			delete event;
 		}
 
-		// Draw and update the active scene.
-		active_scene->update(delta_time.count());
-		active_scene->draw();
+		// Update and draw the active scene.
+		scene->update(delta_time.count());
+		scene->draw();
 
 		// Render the console buffer.
 		console->presentBuffer();
@@ -57,19 +60,21 @@ int Game::play(void) {
 void Game::addScene(std::string name, Scene* scene) {
 	const uint32_t id = static_cast<uint32_t>(scenes.size() - 1);
 	
-	scene->setChangeScene([this](std::string name) {
-		setActiveScene(name);
+	scene->setChangeSceneCallback([this](std::string name, void* args) {
+		setActiveScene(name, args);
 	});
 	
 	scenes[name] = scene;
 }
 
-void Game::setActiveScene(std::string name) {
+void Game::setActiveScene(std::string name, void* args) {
 	auto scene = scenes.find(name);
 
 	if (scene == scenes.end()) {
 		throw std::exception("Scene not found");
 	}
 
-	active_scene = scenes[name];
+	active_scene_name = name;
+
+	scenes[name]->sceneJustCalled(args);
 }

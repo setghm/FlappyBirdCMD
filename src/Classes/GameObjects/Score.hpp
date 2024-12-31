@@ -20,6 +20,6 @@ public:
 
 	void increment(void);
 
-	void reset(void);
+	void restart(void);
 };
 

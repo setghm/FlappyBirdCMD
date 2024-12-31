@@ -1,26 +1,22 @@
 #include "Image.hpp"
 #include "../Console.hpp"
 
-Image::Image(void) {
+Image::Image(void) : GameObject() {
 	data.size = { 0 };
 	data.colors = { 0 };
 	data.color_key = Color::undefined;
 	position = { 0 };
 	flipped_x = false;
 	flipped_y = false;
-	visible = true;
 }
 
 Image::Image(ByteColorImage* image) : Image() {
 	data.size.height = image->height;
 	data.size.width = image->width;
 	data.colors = image->data;
-	visible = true;
 }
 
 void Image::draw(void) {
-	if (!visible) return;
-
 	const double w = static_cast<double>(data.size.width);
 	const double h = static_cast<double>(data.size.height);
 	const double x = static_cast<int>(position.x);

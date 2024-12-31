@@ -1,6 +1,6 @@
 #include "Background.hpp"
 
-Background::Background(void) {
+Background::Background(void) : GameObject() {
 	ByteColorImage* image = AssetManager::getByteColor("tile");
 
 	tile.colors = image->data;

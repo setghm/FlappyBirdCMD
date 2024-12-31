@@ -1,6 +1,6 @@
 #include "Timer.hpp"
 
-Timer::Timer() {
+Timer::Timer() : GameObject() {
 	elapsed_time = 0;
 	duration = 0;
 	action = [](void) {};

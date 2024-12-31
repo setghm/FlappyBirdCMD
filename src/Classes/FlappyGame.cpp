@@ -20,12 +20,6 @@ FlappyGame::FlappyGame() {
 	addScene("main", mainScene);
 	addScene("start", startScene);
 
-	// Configure the main scene restart callback.
-	mainScene->restart = [&]() {
-		delete mainScene;
-		mainScene = new MainScene();
-	};
-
 	// Activate the start scene.
 	setActiveScene("start");
 }

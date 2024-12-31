@@ -3,55 +3,56 @@
 #include <string>
 #include <functional>
 #include <vector>
-#include "GameObject.hpp"
+#include "Container.hpp"
 
-typedef std::function<void(std::string name)> ChangeSceneCallback;
+typedef std::function<void(std::string name, void* args)> ChangeSceneCallback;
 
-class Scene : protected GameObject {
+class Scene : protected Container {
 private:
-	std::vector<GameObject*> children;
+	ChangeSceneCallback changeSceneCallback;
 protected:
-	ChangeSceneCallback changeScene;
+	/*
+	* Change the active scene to another one given its name.
+	* 
+	* If the scene doesn't exists an std::exception will be thrown.
+	* 
+	* Optionally the new scene may receive arguments of any type using a
+	* void pointer.
+	* 
+	* If the arguments are a block in memory that requires freeing, this
+	* can be done after calling this method since the sceneJustCalled method
+	* of the other scene will be executed instantly when calling this method.
+	*/
+	void changeScene(std::string name, void* args = nullptr) const { changeSceneCallback(name, args); }
+
 public:
-	Scene(void) : changeScene([](std::string name) {}) {}
+	Scene(void) : Container(), changeSceneCallback([](std::string name, void* args) {}) {}
 
 	/*
-	* Updates the scene's children.
+	* Draws all the scene's children on the screen.
 	*/
-	virtual void update(double delta_time) override;
+	virtual void draw(void) override { Container::draw(); }
 
 	/*
-	* Draws the scene's children.
+	* Updates all the scene's children.
 	*/
-	virtual void draw(void) override;
+	virtual void update(double delta_time) override { Container::update(delta_time); }
 
 	/*
-	* Process the given input event for all the objects.
+	* Process an input event on each of the scene's children.
 	*/
-	virtual void input(InputEvent* event) override;
+	virtual void input(InputEvent* event) override { Container::input(event); }
 
 	/*
-	* Adds a game object pointer and its ownership to this scene,
-	* so you don't need to remove it manually.
+	* Use this method to setup properties when the scene is just called.
 	*/
-	void addChild(GameObject* child);
-
-	/*
-	* Removes a game object and its ownership, so you need to remove it
-	* manually.
-	*/
-	GameObject* removeChild(GameObject* child);
-
-	/*
-	* When the scene is deleted, all its children are deleted too.
-	*/
-	~Scene();
+	virtual void sceneJustCalled(void* args) {}
 
 	// Accessors.
 
 	/*
 	* Set the change scene callback, don't call this explicitly.
 	*/
-	inline void setChangeScene(ChangeSceneCallback callback) { changeScene = callback; }
+	inline void setChangeSceneCallback(ChangeSceneCallback callback) { changeSceneCallback = callback; }
 };
 

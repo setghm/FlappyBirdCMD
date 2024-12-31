@@ -2,7 +2,7 @@
 
 #include "../Console.hpp"
 
-Sprite::Sprite() {
+Sprite::Sprite() : Image() {
 	world_bounds = { 0 };
 	flipped_x = false;
 	flipped_y = false;

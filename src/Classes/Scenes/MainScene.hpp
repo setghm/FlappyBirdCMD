@@ -2,6 +2,7 @@
 
 #include <GameEngine/GameEngine.hpp>
 #include "../GameObjects/Tube.hpp"
+#include "../GameObjects/Obstacles.hpp"
 #include "../GameObjects/Bird.hpp"
 #include "../GameObjects/Background.hpp"
 #include "../GameObjects/Score.hpp"
@@ -11,14 +12,9 @@
 class MainScene : public Scene {
 private:
 	Background* background;
-
 	Bird* bird;
-
-	std::vector<Tube*> tubes;
-
+	Obstacles* obstacles;
 	Score* score;
-
-	void addTubesPair(void);
 
 	bool game_over;
 
@@ -26,15 +22,11 @@ private:
 	Image* start_label;
 	Timer* blink;
 public:
-	VoidCallback restart;
-
 	MainScene();
 
-	~MainScene();
+	void restart(void);
 
 	void update(double delta_time) override;
-
-	void draw(void) override;
 
 	void input(InputEvent* event) override;
 };
