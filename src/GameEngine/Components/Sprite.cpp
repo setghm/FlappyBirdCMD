@@ -2,6 +2,8 @@
 
 #include "../Console.hpp"
 
+#include <cmath>
+
 Sprite::Sprite() : Image() {
 	world_bounds = { 0 };
 	flipped_x = false;
@@ -66,8 +68,8 @@ bool Sprite::checkCollision(Sprite* other) {
 	const double ob = other->bottom(); // Other bottom
 
 	// Check if the other area is overlapping this area or visceversa.
-	bool ovx = (tl >= ol && tl <= og) || (tg > ol && tg < og);
-	bool ovy = (tt >= ot && tt <= ob) || (tb > ot && tb < ob);
+	bool ovx = (tl >= ol && tl <= og) || (tg >= ol && tg <= og);
+	bool ovy = (tt >= ot && tt <= ob) || (tb >= ot && tb <= ob);
 
 	if (ovx && ovy) {
 		// Check if color keys are ignored on collisions.

@@ -13,4 +13,6 @@ public:
 	StartScene(void);
 
 	void input(InputEvent* event) override;
+
+	void draw(void) override;
 };

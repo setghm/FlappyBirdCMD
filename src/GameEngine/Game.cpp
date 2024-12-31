@@ -41,6 +41,9 @@ int Game::play(void) {
 
 		if (event != nullptr) {
 			scene->input(event);
+
+			onInput(event);
+
 			delete event;
 		}
 

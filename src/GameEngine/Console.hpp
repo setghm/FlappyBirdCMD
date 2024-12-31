@@ -90,5 +90,10 @@ public:
 	* Draws a solid color in the specified area at the specified position (0,0 by default).
 	*/
 	void draw(Color color, uint32_t width, uint32_t height, int x = 0, int y = 0);
+
+	/*
+	* Draws a text string on the screen.
+	*/
+	void drawString(std::string string, const int x = 0, const int y = 0);
 };
 

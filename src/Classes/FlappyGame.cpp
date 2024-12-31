@@ -23,3 +23,15 @@ FlappyGame::FlappyGame() {
 	// Activate the start scene.
 	setActiveScene("start");
 }
+
+void FlappyGame::onInput(InputEvent* event) {
+	// Exit the game if the user press the ESCAPE key.
+
+	if (event->isKeyboardEvent()) {
+		const KeyboardEvent* kbe = event->toKeyboardEvent();
+
+		if (kbe->keycode == 27) {
+			exit();
+		}
+	}
+}

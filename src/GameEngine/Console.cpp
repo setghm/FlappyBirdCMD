@@ -254,3 +254,17 @@ void Console::draw(Color color, uint32_t width, uint32_t height, int x, int y) {
 	}
 
 }
+
+void Console::drawString(std::string string, const int x, const int y) {
+	
+	for (int bx = x, i = 0; bx < x + string.size(); bx++, i++) {
+
+		if (bx >= 0 && y >= 0 && y < config::screen::height && bx < config::screen::width) {
+			const int buffer_pos = bx + (y * config::screen::width);
+
+			buffer[buffer_pos].Char.AsciiChar = string.at(i);
+		}
+
+	}
+
+}

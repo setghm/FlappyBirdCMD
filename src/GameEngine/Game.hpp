@@ -10,6 +10,8 @@ private:
 	std::map<std::string, Scene*> scenes;
 	std::string active_scene_name;
 	bool running;
+
+	virtual void onInput(InputEvent* event) {};
 public:
 	Game(void);
 
@@ -23,6 +25,11 @@ public:
 	* Start the main loop for the game object.
 	*/
 	int play(void);
+
+	/*
+	* Finishes the game.
+	*/
+	inline void exit(void) { running = false; }
 
 	/*
 	* Adds the desired scene to the game scenes and returns its ID.

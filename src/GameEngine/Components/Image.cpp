@@ -16,6 +16,8 @@ Image::Image(ByteColorImage* image) : Image() {
 	data.colors = image->data;
 }
 
+#include <iostream>
+
 void Image::draw(void) {
 	const double w = static_cast<double>(data.size.width);
 	const double h = static_cast<double>(data.size.height);
@@ -25,8 +27,8 @@ void Image::draw(void) {
 	const Rect2d data_rect { 0, 0, w, h };
 
 	const Rect2d screen_rect {
-		flipped_x ? x + w : x,
-		flipped_y ? y + h : y,
+		flipped_x ? w + x : x,
+		flipped_y ? h + y : y,
 		flipped_x ? -w : w,
 		flipped_y ? -h : h
 	};

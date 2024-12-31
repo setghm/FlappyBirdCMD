@@ -48,3 +48,10 @@ void StartScene::input(InputEvent* event) {
 		}
 	}
 }
+
+void StartScene::draw(void) {
+	Scene::draw();
+
+	// Draw the author name.
+	Console::getInstance()->drawString("setghm 2025", 1, config::screen::height - 2);
+}
