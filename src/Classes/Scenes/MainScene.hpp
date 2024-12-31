@@ -19,7 +19,15 @@ private:
 	Score* score;
 
 	void addTubesPair(void);
+
+	bool game_over;
+
+	Image* game_over_label;
+	Image* start_label;
+	Timer* blink;
 public:
+	VoidCallback restart;
+
 	MainScene();
 
 	~MainScene();
@@ -27,5 +35,7 @@ public:
 	void update(double delta_time) override;
 
 	void draw(void) override;
+
+	void input(InputEvent* event) override;
 };
 

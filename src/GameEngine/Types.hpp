@@ -2,6 +2,9 @@
 
 #include <cinttypes>
 #include <vector>
+#include <functional>
+
+typedef std::function<void(void)> VoidCallback;
 
 struct Rect2d;
 struct Vector2d;

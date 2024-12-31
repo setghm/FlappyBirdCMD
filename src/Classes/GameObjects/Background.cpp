@@ -1,6 +1,6 @@
 #include "Background.hpp"
 
-Background::Background(double start_x) {
+Background::Background(void) {
 	ByteColorImage* image = AssetManager::getByteColor("tile");
 
 	tile.colors = image->data;
@@ -18,7 +18,7 @@ Background::Background(double start_x) {
 
 	tiles_start_y = config::screen::height - tile.size.height;
 
-	tiles_start_x = start_x;
+	tiles_start_x = 0;
 }
 
 void Background::draw(void) {

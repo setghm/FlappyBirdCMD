@@ -1,15 +1,16 @@
 #include "Game.hpp"
 #include "Console.hpp"
 #include <chrono>
+#include <exception>
 
 Game::Game(void) {
 	running = true;
-	active_scene = 0;
+	active_scene = nullptr;
 }
 
 Game::~Game(void) {
-	for (Scene* scene : scenes) {
-		delete scene;
+	for (auto& pair : scenes) {
+		delete pair.second;
 	}
 
 	(void)scenes.empty();
@@ -32,20 +33,17 @@ int Game::play(void) {
 		// Clear the console buffer.
 		console->clear();
 
-		// Get the active scene.
-		Scene* scene = scenes[active_scene];
-
 		// Check for input events and process.
 		InputEvent* event = console->checkInput();
 
 		if (event != nullptr) {
-			scene->input(event);
+			active_scene->input(event);
 			delete event;
 		}
 
 		// Draw and update the active scene.
-		scene->update(delta_time.count());
-		scene->draw();
+		active_scene->update(delta_time.count());
+		active_scene->draw();
 
 		// Render the console buffer.
 		console->presentBuffer();
@@ -56,18 +54,22 @@ int Game::play(void) {
 	return 0;
 }
 
-uint32_t Game::addScene(Scene* scene) {
+void Game::addScene(std::string name, Scene* scene) {
 	const uint32_t id = static_cast<uint32_t>(scenes.size() - 1);
 	
-	scene->setId(id);
+	scene->setChangeScene([this](std::string name) {
+		setActiveScene(name);
+	});
 	
-	scenes.push_back(scene);
-
-	return id;
+	scenes[name] = scene;
 }
 
-void Game::setActiveScene(uint32_t scene_id) {
-	if (scene_id < scenes.size()) {
-		active_scene = scene_id;
+void Game::setActiveScene(std::string name) {
+	auto scene = scenes.find(name);
+
+	if (scene == scenes.end()) {
+		throw std::exception("Scene not found");
 	}
+
+	active_scene = scenes[name];
 }

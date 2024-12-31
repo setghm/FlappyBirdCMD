@@ -1,13 +1,14 @@
 #pragma once
 
 #include <cinttypes>
-#include <vector>
+#include <map>
+#include <string>
 #include "Components/Scene.hpp"
 
 class Game {
 private:
-	std::vector<Scene*> scenes;
-	uint32_t active_scene;
+	std::map<std::string, Scene*> scenes;
+	Scene* active_scene;
 	bool running;
 public:
 	Game(void);
@@ -26,11 +27,11 @@ public:
 	/*
 	* Adds the desired scene to the game scenes and returns its ID.
 	*/
-	uint32_t addScene(Scene* scene);
+	void addScene(std::string name, Scene* scene);
 
 	/*
 	* Set the active scene from its index.
 	*/
-	void setActiveScene(uint32_t scene_id);
+	void setActiveScene(std::string name);
 };
 

@@ -13,6 +13,4 @@ public:
 	StartScene(void);
 
 	void input(InputEvent* event) override;
-
-	double getBackgroundX(void) const { return background->getX(); }
 };

@@ -9,11 +9,28 @@ StartScene::StartScene(void) : Scene() {
 	addChild(start);
 	addChild(title);
 
+	// Configure objects.
+	title->setPosition(
+		(config::screen::width - title->getWidth()) / 2,
+		config::screen::height * 0.2
+	);
+
+	title->setColorKey(Color::black);
+
+	start->setPosition(
+		(config::screen::width - start->getWidth()) / 2,
+		config::screen::height * 0.75
+	);
+
+	start->setColorKey(Color::black);
+
 	// Add timer to blink the start label.
 	Timer* blink = new Timer();
 
 	blink->setDuration(config::game::duration_blink);
+	
 	blink->setLoop(true);
+
 	blink->setAction([this](void) {
 		start->setVisible(!start->isVisible());
 	});
@@ -27,8 +44,7 @@ void StartScene::input(InputEvent* event) {
 		const KeyboardEvent* ev = static_cast<KeyboardEvent*>(event);
 
 		if (ev->is_pressed) {
-			
+			changeScene("main");
 		}
-
 	}
 }

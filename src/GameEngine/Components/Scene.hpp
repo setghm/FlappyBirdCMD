@@ -1,15 +1,19 @@
 #pragma once
 
+#include <string>
+#include <functional>
 #include <vector>
 #include "GameObject.hpp"
+
+typedef std::function<void(std::string name)> ChangeSceneCallback;
 
 class Scene : protected GameObject {
 private:
 	std::vector<GameObject*> children;
-
-	int id;
+protected:
+	ChangeSceneCallback changeScene;
 public:
-	Scene() : id(-1) {}
+	Scene(void) : changeScene([](std::string name) {}) {}
 
 	/*
 	* Updates the scene's children.
@@ -46,13 +50,8 @@ public:
 	// Accessors.
 
 	/*
-	* Current Scene ID or -1 if not set.
+	* Set the change scene callback, don't call this explicitly.
 	*/
-	int getId(void) const { return id; }
-
-	/*
-	* Change the Scene ID, don't use explicitly.
-	*/
-	inline void setId(int id) { this->id = id; }
+	inline void setChangeScene(ChangeSceneCallback callback) { changeScene = callback; }
 };
 

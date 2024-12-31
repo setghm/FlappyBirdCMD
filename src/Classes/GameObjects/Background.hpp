@@ -12,7 +12,7 @@ private:
 	double tiles_start_x;
 	double tile_velocity_x;
 public:
-	Background(double start_x = 0);
+	Background(void);
 
 	void draw(void) override;
 

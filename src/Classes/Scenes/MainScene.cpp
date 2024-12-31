@@ -31,12 +31,43 @@ MainScene::MainScene() : Scene() {
 
 	// Create the score object.
 	score = new Score();
+
+	// By default the restart callback does nothing.
+	restart = [](void) {};
+
+	// Create game over labels.
+	game_over_label = new Image(AssetManager::getByteColor("game over"));
+	start_label = new Image(AssetManager::getByteColor("press start"));
+
+	game_over_label->setPosition(
+		(config::screen::width - game_over_label->getWidth()) / 2,
+		config::screen::height * 0.2
+	);
+	game_over_label->setColorKey(Color::black);
+
+	start_label->setPosition(
+		(config::screen::width - start_label->getWidth()) / 2,
+		config::screen::height * 0.75
+	);
+	start_label->setColorKey(Color::black);
+
+	blink = new Timer();
+
+	blink->setDuration(config::game::duration_blink);
+	blink->setLoop(true);
+
+	blink->setAction([this](void) {
+		start_label->setVisible(!start_label->isVisible());
+	});
 }
 
 MainScene::~MainScene() {
 	Scene::~Scene();
 
 	delete score;
+	delete game_over_label;
+	delete start_label;
+	delete blink;
 
 	for (Tube* tube : tubes) {
 		delete tube;
@@ -67,6 +98,12 @@ void MainScene::addTubesPair(void) {
 }
 
 void MainScene::update(double delta_time) {
+	// If game is over don't update tubes only the blink timer.
+	if (game_over) {
+		blink->update(delta_time);
+		return;
+	}
+
 	Scene::update(delta_time);
 
 	for (auto it = tubes.begin(); it != tubes.end(); ) {
@@ -80,18 +117,18 @@ void MainScene::update(double delta_time) {
 			
 			continue;
 		}
+
+		// Check if player has scored.
+		if (tube->canScore(bird->getWidth())) {
+			score->increment();
+		}
 		
 		// Check collisions with bird.
 		bool bird_colliding = bird->checkCollision(tube);
 
 		if (bird_colliding) {
-			// Notify game over.
-			//break;
-		}
-
-		// Check if player has scored.
-		if (tube->canScore(bird->getWidth())) {
-			score->increment();
+			game_over = true;
+			bird->setDeath(true);
 		}
 
 		it++;
@@ -105,6 +142,24 @@ void MainScene::draw(void) {
 		tube->draw();
 	}
 
-	score->draw(); // Draw at the top of everything.
+	score->draw(); // Draw at the top of everything (while playing).
+
+	// Draw at the top of everything (while in game over state).
+	if (game_over) {
+		game_over_label->draw();
+		start_label->draw();
+	}
 }
 
+void MainScene::input(InputEvent* event) {
+	Scene::input(event);
+
+	if (game_over && event->type == InputEventType::keyboard) {
+
+		const KeyboardEvent* ev = static_cast<KeyboardEvent*>(event);
+
+		if (ev->is_pressed) {
+			restart();
+		}
+	}
+}

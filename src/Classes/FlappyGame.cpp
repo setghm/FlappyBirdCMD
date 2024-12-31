@@ -1,5 +1,6 @@
 #include "FlappyGame.hpp"
 #include "Scenes/MainScene.hpp"
+#include "Scenes/StartScene.hpp"
 
 FlappyGame::FlappyGame() {
 	// Preload all the assets.
@@ -8,15 +9,23 @@ FlappyGame::FlappyGame() {
 	AssetManager::preloadByteColor("tube", "assets/tube.bytecolor");
 	AssetManager::preloadByteColor("title", "assets/title.bytecolor");
 	AssetManager::preloadByteColor("game over", "assets/game_over.bytecolor");
-	AssetManager::preloadByteColor("title", "assets/background_tile.bytecolor");
+	AssetManager::preloadByteColor("tile", "assets/background_tile.bytecolor");
 	AssetManager::preloadByteColor("numbers", "assets/numbers.bytecolor");
 	AssetManager::preloadByteColor("press start", "assets/press_to_start.bytecolor");
 
 	// Create the scenes.
 	MainScene *mainScene = new MainScene();
+	StartScene *startScene = new StartScene();
 
-	int mainSceneId = addScene(mainScene);
+	addScene("main", mainScene);
+	addScene("start", startScene);
+
+	// Configure the main scene restart callback.
+	mainScene->restart = [&]() {
+		delete mainScene;
+		mainScene = new MainScene();
+	};
 
 	// Activate the start scene.
-	setActiveScene(mainSceneId);
+	setActiveScene("start");
 }

@@ -29,6 +29,8 @@ public:
 	*/
 	virtual void input(InputEvent* event) override {}
 
+	// Accessors.
+
 	/*
 	* The sleep duration in seconds.
 	*/
