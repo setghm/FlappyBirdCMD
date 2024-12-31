@@ -212,14 +212,18 @@ void Console::draw(const ColorData& data, const Rect2d& data_rect, const Rect2d&
 	// Increment for the screen position iterator along X axis.
 	const int sxi = fx ? -1 : 1;
 
+	// Calculate the start positions.
+	const int ssy = fy ? screen_rect.y - 1 : screen_rect.y; // Screen start Y
+	const int ssx = fx ? screen_rect.x - 1 : screen_rect.x; // Screen start X
+
 	int dy = 0; // Data iterator for Y axis.
 	int dx = 0; // Data iterator for X axis.
 
 	int sy = 0; // Console screen buffer iterator for Y axis (the actual screen x).
 	int sx = 0; // Console screen buffer iterator for X axis (the actual screen y).
 
-	for (sy = screen_rect.y, dy = data_rect.y; (fy ? sy > smy : sy < smy) && (dy < dmy); sy += syi, dy++) {
-		for (sx = screen_rect.x, dx = data_rect.x; (fx ? sx > smx : sx < smx) && (dx < dmx); sx += sxi, dx++) {
+	for (sy = ssy, dy = data_rect.y; (fy ? sy > smy : sy < smy) && (dy < dmy); sy += syi, dy++) {
+		for (sx = ssx, dx = data_rect.x; (fx ? sx > smx : sx < smx) && (dx < dmx); sx += sxi, dx++) {
 
 			// Check if this will be visible and draw if true.
 			if (sx >= 0 && sy >= 0 && sy < config::screen::height && sx < config::screen::width) {
@@ -267,4 +271,23 @@ void Console::drawString(std::string string, const int x, const int y) {
 
 	}
 
+}
+
+void Console::drawFrame(const Rect2d& rect, Color color) {
+	const double my = rect.y + rect.height;
+	const double mx = rect.x + rect.width;
+
+	for (int by = rect.y; by < my; by++) {
+		for (int bx = rect.x; bx < mx; bx++) {
+
+			if ((bx >= 0 && by >= 0) &&
+				(by < config::screen::height && bx < config::screen::width) &&
+				(bx == rect.x || by == rect.y || bx == mx - 1 || by == my - 1)) {
+				const int buffer_pos = bx + (by * config::screen::width);
+
+				buffer[buffer_pos].Attributes = static_cast<uint8_t>(color);
+			}
+
+		}
+	}
 }

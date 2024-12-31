@@ -95,5 +95,10 @@ public:
 	* Draws a text string on the screen.
 	*/
 	void drawString(std::string string, const int x = 0, const int y = 0);
+
+	/*
+	* Draws a frame around the specified rect.
+	*/
+	void drawFrame(const Rect2d& rect, Color color = Color::red);
 };
 

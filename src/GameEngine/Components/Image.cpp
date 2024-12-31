@@ -34,4 +34,9 @@ void Image::draw(void) {
 	};
 
 	Console::getInstance()->draw(data, data_rect, screen_rect);
+
+	Console::getInstance()->drawFrame({
+		x, y,
+		w, h
+	});
 }
