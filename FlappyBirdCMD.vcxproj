@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\GameObjects\Score.cpp" />
+    <ClCompile Include="src\Classes\GameObjects\Background.cpp" />
     <ClCompile Include="src\GameEngine\Components\Image.cpp" />
     <ClCompile Include="src\GameEngine\AssetManager.cpp" />
     <ClCompile Include="src\Classes\GameObjects\Bird.cpp" />
@@ -145,8 +147,11 @@
     <ClCompile Include="src\Classes\GameObjects\Tube.cpp" />
     <ClCompile Include="src\GameEngine\Utils.cpp" />
     <ClCompile Include="src\GameEngine\Components\Timer.cpp" />
+    <ClCompile Include="src\Classes\Scenes\StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Classes\GameObjects\Score.hpp" />
+    <ClInclude Include="src\Classes\GameObjects\Background.hpp" />
     <ClInclude Include="src\GameEngine\Components\Image.hpp" />
     <ClInclude Include="src\GameEngine\Components\PhysicsBody.hpp" />
     <ClInclude Include="src\GameEngine\AssetManager.hpp" />
@@ -167,6 +172,7 @@
     <ClInclude Include="src\Classes\GameObjects\Tube.hpp" />
     <ClInclude Include="src\GameEngine\Utils.hpp" />
     <ClInclude Include="src\GameEngine\Components\Timer.hpp" />
+    <ClInclude Include="src\Classes\Scenes\StartScene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

@@ -7,7 +7,7 @@ public:
 	/*
 	* Draws the object on the screen.
 	*/
-	virtual void draw() = 0;
+	virtual void draw(void) = 0;
 	
 	/*
 	* Called each frame, updates the object properties.

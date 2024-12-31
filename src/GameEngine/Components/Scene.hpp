@@ -6,7 +6,11 @@
 class Scene : protected GameObject {
 private:
 	std::vector<GameObject*> children;
+
+	int id;
 public:
+	Scene() : id(-1) {}
+
 	/*
 	* Updates the scene's children.
 	*/
@@ -38,5 +42,17 @@ public:
 	* When the scene is deleted, all its children are deleted too.
 	*/
 	~Scene();
+
+	// Accessors.
+
+	/*
+	* Current Scene ID or -1 if not set.
+	*/
+	int getId(void) const { return id; }
+
+	/*
+	* Change the Scene ID, don't use explicitly.
+	*/
+	inline void setId(int id) { this->id = id; }
 };
 

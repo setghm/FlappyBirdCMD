@@ -57,8 +57,13 @@ int Game::play(void) {
 }
 
 uint32_t Game::addScene(Scene* scene) {
+	const uint32_t id = static_cast<uint32_t>(scenes.size() - 1);
+	
+	scene->setId(id);
+	
 	scenes.push_back(scene);
-	return static_cast<uint32_t>(scenes.size() - 1);
+
+	return id;
 }
 
 void Game::setActiveScene(uint32_t scene_id) {

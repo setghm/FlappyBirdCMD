@@ -26,9 +26,15 @@ Bird::Bird() {
 	setData(frame_falling);
 
 	falling = true;
+
+	death = false;
 }
 
 void Bird::update(double delta_time) {
+	if (death) {
+		return;
+	}
+
 	Sprite::update(delta_time);
 
 	const double vy = body.getVelocityY();
@@ -44,6 +50,10 @@ void Bird::update(double delta_time) {
 }
 
 void Bird::input(InputEvent* event) {
+	if (death) {
+		return;
+	}
+
 	if (event->type == InputEventType::keyboard) {
 		KeyboardEvent* ke = static_cast<KeyboardEvent*>(event);
 

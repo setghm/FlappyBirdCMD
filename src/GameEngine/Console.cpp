@@ -218,12 +218,12 @@ void Console::draw(const ColorData& data, const Rect2d& data_rect, const Rect2d&
 	int sy = 0; // Console screen buffer iterator for Y axis (the actual screen x).
 	int sx = 0; // Console screen buffer iterator for X axis (the actual screen y).
 
-	for (sy = screen_rect.y, dy = 0; (fy ? sy > smy : sy < smy) && (dy < dmy); sy += syi, dy++) {
-		for (sx = screen_rect.x, dx = 0; (fx ? sx > smx : sx < smx) && (dx < dmx); sx += sxi, dx++) {
+	for (sy = screen_rect.y, dy = data_rect.y; (fy ? sy > smy : sy < smy) && (dy < dmy); sy += syi, dy++) {
+		for (sx = screen_rect.x, dx = data_rect.x; (fx ? sx > smx : sx < smx) && (dx < dmx); sx += sxi, dx++) {
 
 			// Check if this will be visible and draw if true.
 			if (sx >= 0 && sy >= 0 && sy < config::screen::height && sx < config::screen::width) {
-				const int position_in_data = dx + (dy * dw);
+				const int position_in_data = dx + (dy * data.size.width);
 				
 				const uint8_t color = data.colors[position_in_data];
 

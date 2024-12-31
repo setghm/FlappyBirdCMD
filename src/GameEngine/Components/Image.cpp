@@ -14,6 +14,8 @@ Image::Image(ByteColorImage* image) : Image() {
 }
 
 void Image::draw(void) {
+	if (!visible) return;
+
 	const double w = static_cast<double>(data.size.width);
 	const double h = static_cast<double>(data.size.height);
 	const double x = static_cast<int>(position.x);

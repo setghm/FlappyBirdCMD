@@ -22,7 +22,13 @@ namespace config {
 		constexpr double tubes_max_middle_y = screen::height * 0.6;
 		constexpr double tubes_velocity = -30;
 
+		constexpr double bg_velocity = -5;
+
+		constexpr double score_position_y = screen::height * 0.05;
+		constexpr double score_number_gap = 2;
+
 		constexpr double duration_tubes_generation = 2.3; // In seconds
+		constexpr double duration_blink = 1; // In seconds
 	};
 
 	namespace player {

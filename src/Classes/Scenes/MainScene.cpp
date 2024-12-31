@@ -2,7 +2,12 @@
 
 #include <iostream>
 
-MainScene::MainScene() {
+MainScene::MainScene() : Scene() {
+	// Create the background.
+	background = new Background();
+
+	addChild(background); // Drawn first
+
 	// Create the bird object.
 	bird = new Bird();
 
@@ -23,10 +28,15 @@ MainScene::MainScene() {
 
 	// Generate the first pair of tubes.
 	addTubesPair();
+
+	// Create the score object.
+	score = new Score();
 }
 
 MainScene::~MainScene() {
 	Scene::~Scene();
+
+	delete score;
 
 	for (Tube* tube : tubes) {
 		delete tube;
@@ -76,6 +86,12 @@ void MainScene::update(double delta_time) {
 
 		if (bird_colliding) {
 			// Notify game over.
+			//break;
+		}
+
+		// Check if player has scored.
+		if (tube->canScore(bird->getWidth())) {
+			score->increment();
 		}
 
 		it++;
@@ -88,5 +104,7 @@ void MainScene::draw(void) {
 	for (Tube* tube : tubes) {
 		tube->draw();
 	}
+
+	score->draw(); // Draw at the top of everything.
 }
 
