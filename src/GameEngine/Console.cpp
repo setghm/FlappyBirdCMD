@@ -286,6 +286,7 @@ void Console::drawFrame(const Rect2d& rect, Color color) {
 				const int buffer_pos = bx + (by * config::screen::width);
 
 				buffer[buffer_pos].Attributes = static_cast<uint8_t>(color);
+				buffer[buffer_pos].Char.AsciiChar = '.';
 			}
 
 		}
