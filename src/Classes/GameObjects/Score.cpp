@@ -10,7 +10,7 @@ Score::Score(void) : GameObject() {
 	numbers.colors = image->data;
 	numbers.size.width = image->width;
 	numbers.size.height = image->height;
-	numbers.color_key = Color::black;
+	numbers.color_key = Color::red;
 
 	y = config::game::score_position_y;
 }
@@ -27,8 +27,7 @@ void Score::draw(void) {
 
 	// Calculate the total width.
 	const int number_width = static_cast<double>(numbers.size.width) / 10;
-	const int ciphers_width = number_width * ciphers;
-	const int width = ciphers_width + config::game::score_number_gap * (ciphers - 1);
+	const int width = number_width * ciphers;
 	
 	// Calculate the X position.
 	const double start_x = (config::screen::width - width) / 2;
@@ -49,10 +48,6 @@ void Score::draw(void) {
 		screen_rect.x = x;
 
 		Console::getInstance()->draw(numbers, draw_rect, screen_rect);
-
-		if (c > 0) {
-			x += config::game::score_number_gap;
-		}
 	}
 
 }

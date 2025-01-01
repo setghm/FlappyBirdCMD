@@ -25,7 +25,6 @@ namespace config {
 		constexpr double bg_velocity = -5;
 
 		constexpr double score_position_y = screen::height * 0.05;
-		constexpr double score_number_gap = 2;
 
 		constexpr double title_y = screen::height * 0.25;
 		constexpr double start_label_y = screen::height * 0.75;
