@@ -6,6 +6,8 @@
 #include <vector>
 #include <cmath>
 
+#include "../res/resource.h"
+
 Console* Console::instance = new Console();
 
 /*
@@ -110,6 +112,19 @@ Console::Console(void) {
 	wchar_t buffer[500] = { 0 };
 	GetWindowText(hWndConsole, buffer, 500);
 	restoreTitle = buffer;
+
+	/*
+	* Save the current console icon to restore.
+	*/
+	hRestoreIcon = (HICON) SendMessage(hWndConsole, WM_GETICON, (WPARAM)ICON_BIG, (LPARAM)&lnRestoreIconDpi);
+	hRestoreIconSm = (HICON)SendMessage(hWndConsole, WM_GETICON, (WPARAM)ICON_SMALL, (LPARAM)&lnRestoreIconSmDpi);
+	
+	/*
+	* Change the console icon.
+	*/
+	HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
+	SendMessage(hWndConsole, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+	SendMessage(hWndConsole, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
 }
 
 /*
@@ -124,6 +139,9 @@ Console::~Console(void) {
 	SetConsoleMode(hStdIn, dwRestoreInputMode);
 
 	SetWindowLong(hWndConsole, GWL_STYLE, dwRestoreStyle);
+	
+	SendMessage(hWndConsole, WM_SETICON, ICON_BIG, (LPARAM)hRestoreIcon);
+	SendMessage(hWndConsole, WM_SETICON, ICON_SMALL, (LPARAM)hRestoreIconSm);
 
 	delete [] buffer;
 }

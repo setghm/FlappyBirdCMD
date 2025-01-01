@@ -11,7 +11,7 @@ namespace config {
 	};
 
 	namespace game {
-		const std::wstring name = L"Flappy Bird";
+		const std::wstring name = L"Flappy Bird CMD";
 
 		constexpr double gravity = 45;
 

@@ -151,6 +151,7 @@
     <ClCompile Include="src\Classes\Scenes\StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\Classes\GameObjects\Obstacles.hpp" />
     <ClInclude Include="src\GameEngine\Components\Container.hpp" />
     <ClInclude Include="src\Classes\GameObjects\Score.hpp" />
@@ -179,6 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

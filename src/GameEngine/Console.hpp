@@ -50,6 +50,14 @@ private:
 	* The window style to be restored once the game is closed.
 	*/
 	DWORD dwRestoreStyle;
+
+	/*
+	* The window icon to restore.
+	*/
+	HICON hRestoreIcon;
+	HICON hRestoreIconSm;
+	LONG lnRestoreIconDpi;
+	LONG lnRestoreIconSmDpi;
 public:
 	/*
 	* Clears the entire screen buffer.
