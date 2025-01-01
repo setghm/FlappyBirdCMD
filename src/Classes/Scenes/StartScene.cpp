@@ -12,17 +12,17 @@ StartScene::StartScene(void) : Scene() {
 	// Configure objects.
 	title->setPosition(
 		(config::screen::width - title->getWidth()) / 2,
-		config::screen::height * 0.2
+		config::game::title_y
 	);
 
-	title->setColorKey(Color::black);
+	title->setColorKey(Color::red);
 
 	start->setPosition(
 		(config::screen::width - start->getWidth()) / 2,
-		config::screen::height * 0.75
+		config::game::start_label_y
 	);
 
-	start->setColorKey(Color::black);
+	start->setColorKey(Color::red);
 
 	// Add timer to blink the start label.
 	Timer* blink = new Timer();

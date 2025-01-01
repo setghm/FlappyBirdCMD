@@ -19,9 +19,6 @@ Obstacles::Obstacles(void) : Container() {
 	spawn_timer->setLoop(true);
 
 	addChild(spawn_timer);
-
-	// Generate the first pair of tubes.
-	spawn();
 }
 
 void Obstacles::update(double delta_time) {
@@ -50,8 +47,6 @@ void Obstacles::restart(void) {
 	tubes->clear();
 
 	spawn_timer->restart();
-
-	spawn();
 }
 
 void Obstacles::spawn(void) {

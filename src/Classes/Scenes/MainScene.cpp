@@ -30,15 +30,15 @@ MainScene::MainScene() : Scene() {
 
 	game_over_label->setPosition(
 		(config::screen::width - game_over_label->getWidth()) / 2,
-		config::screen::height * 0.2
+		config::game::title_y
 	);
-	game_over_label->setColorKey(Color::black);
+	game_over_label->setColorKey(Color::red);
 
 	start_label->setPosition(
 		(config::screen::width - start_label->getWidth()) / 2,
-		config::screen::height * 0.75
+		config::game::start_label_y
 	);
-	start_label->setColorKey(Color::black);
+	start_label->setColorKey(Color::red);
 
 	addChild(game_over_label);
 	addChild(start_label);
