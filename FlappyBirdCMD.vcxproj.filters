@@ -152,6 +152,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="assets\background_tile.bytecolor" />
+    <None Include="assets\bird-pos1.bytecolor" />
+    <None Include="assets\bird-pos2.bytecolor" />
+    <None Include="assets\game_over.bytecolor" />
+    <None Include="assets\numbers.bytecolor" />
+    <None Include="assets\press_to_start.bytecolor" />
+    <None Include="assets\title.bytecolor" />
+    <None Include="assets\tube.bytecolor" />
+    <None Include="Export.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\icon.ico">
