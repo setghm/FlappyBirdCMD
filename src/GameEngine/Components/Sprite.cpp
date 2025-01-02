@@ -118,4 +118,6 @@ bool Sprite::checkCollision(Sprite* other) {
 
 		return true;
 	}
+
+	return false;
 }

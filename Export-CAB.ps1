@@ -4,6 +4,9 @@
 #
 # Generate a self-extracting Cabinet file.
 #
+# Setup in post-build events:
+# powershell "$(ProjectDir)Export-CAB.ps1" -ProjectDir $(ProjectDir) -TargetDir $(TargetDir) -ProjectName $(ProjectName)
+#
 param(
 	[Parameter(Mandatory=$true)][string]$TargetDir,
 	[Parameter(Mandatory=$true)][string]$ProjectDir,
@@ -15,7 +18,7 @@ $ExportCabName = "$ExportName.cab"
 $ExportExeName = "$ExportName.exe"
 $ExportDirectiveFile = "directives.ddf"
 
-$AutoExtractProgram = "$env:WINDIR\System32\expand.exe"
+$AutoExtractProgram = "$env:WINDIR\System32\extrac32.exe"
 
 # Work on the build directory.
 Set-Location $TargetDir

@@ -103,7 +103,7 @@ void MainScene::update(double delta_time) {
 		// Check collisions with bird.
 		bool bird_colliding = bird->checkCollision(tube);
 
-		if (bird_colliding) {
+ 		if (bird_colliding) {
 			game_over = true;
 
 			bird->setInteractive(false);

@@ -143,7 +143,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>powershell $(ProjectDir)Export.ps1 -ProjectDir $(ProjectDir) -TargetDir $(TargetDir) -ProjectName $(ProjectName)</Command>
+      <Command>powershell "$(ProjectDir)Export-ZIP.ps1" -ProjectDir $(ProjectDir) -TargetDir $(TargetDir) -ProjectName $(ProjectName)</Command>
       <Message>Export game</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -155,13 +155,17 @@
     <ClCompile Include="src\GameEngine\Components\Image.cpp" />
     <ClCompile Include="src\GameEngine\AssetManager.cpp" />
     <ClCompile Include="src\Classes\GameObjects\Bird.cpp" />
-    <ClCompile Include="src\Classes\Scenes\MainScene.cpp" />
+    <ClCompile Include="src\Classes\Scenes\MainScene.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MaxSpeed</Optimization>
+    </ClCompile>
     <ClCompile Include="src\Classes\FlappyGame.cpp" />
     <ClCompile Include="src\GameEngine\Addons\bytecolor_loader.cpp" />
     <ClCompile Include="src\GameEngine\Game.cpp" />
     <ClCompile Include="src\GameEngine\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\GameEngine\Components\Sprite.cpp" />
+    <ClCompile Include="src\GameEngine\Components\Sprite.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MaxSpeed</Optimization>
+    </ClCompile>
     <ClCompile Include="src\Classes\GameObjects\Tube.cpp" />
     <ClCompile Include="src\GameEngine\Utils.cpp" />
     <ClCompile Include="src\GameEngine\Components\Timer.cpp" />
@@ -205,7 +209,8 @@
     <None Include="assets\press_to_start.bytecolor" />
     <None Include="assets\title.bytecolor" />
     <None Include="assets\tube.bytecolor" />
-    <None Include="Export.ps1" />
+    <None Include="Export-CAB.ps1" />
+    <None Include="Export-ZIP.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\icon.ico" />

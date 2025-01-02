@@ -160,7 +160,8 @@
     <None Include="assets\press_to_start.bytecolor" />
     <None Include="assets\title.bytecolor" />
     <None Include="assets\tube.bytecolor" />
-    <None Include="Export.ps1" />
+    <None Include="Export-CAB.ps1" />
+    <None Include="Export-ZIP.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\icon.ico">
